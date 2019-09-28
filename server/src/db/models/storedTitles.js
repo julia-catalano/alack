@@ -22,6 +22,4 @@ const Title = db.define('title', {
   }
 })
 
-module.exports = {
-  Title
-}
+module.exports = Title

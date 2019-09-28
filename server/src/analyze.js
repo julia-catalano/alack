@@ -1,10 +1,10 @@
 const router = require('express').Router()
-const axios = require('axios')
+require('dotenv').config()
 const Title = require('./db/models/storedTitles')
 const language = require('@google-cloud/language')
-require('dotenv').config()
 
-async function quickstart() {
+
+async function quickstart(inputText) {
   // Imports the Google Cloud client library
 
 
@@ -12,7 +12,8 @@ async function quickstart() {
   const client = new language.LanguageServiceClient();
 
   // The text to analyze
-  const text = 'Hello, world!';
+
+  const text = inputText;
 
   const document = {
     content: text,
@@ -22,19 +23,24 @@ async function quickstart() {
   // Detects the sentiment of the text
   const [result] = await client.analyzeSentiment({document: document});
   const sentiment = result.documentSentiment;
-
+  return sentiment
   console.log(`Text: ${text}`);
   console.log(`Sentiment score: ${sentiment.score}`);
   console.log(`Sentiment magnitude: ${sentiment.magnitude}`);
 }
 
-quickstart()
 
 router.post('/', async (req, res) => {
-  try{
-    res.send({
-      message: `ive received your request to analyze ${req.body.title}, woohoo`
-    })
+try {
+  const data = await Title.findOne({
+    where: {
+      title: req.body.title
+    }
+  })
+  console.log(data.text)
+  const response = await quickstart(data.text)
+  console.log(response)
+  res.json(response)
   } catch (error) {
     next(error)
   }
