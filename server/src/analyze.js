@@ -42,7 +42,7 @@ try {
   console.log(response)
   res.json(response)
   } catch (error) {
-    next(error)
+    res.status(400).send(`Sorry, I can't read that one right now!`)
   }
 })
 
