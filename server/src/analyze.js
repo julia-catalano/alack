@@ -32,15 +32,24 @@ async function quickstart(inputText) {
 
 router.post('/', async (req, res) => {
 try {
+  console.log('this is the body', req.body.title)
   const data = await Title.findOne({
     where: {
       title: req.body.title
     }
   })
-  console.log(data.text)
+  console.log(data.author, data.bookUrl, data.title)
   const response = await quickstart(data.text)
-  console.log(response)
-  res.json(response)
+  console.log('response', response)
+  const sendThis = {
+    title: data.title,
+    author: data.author,
+    bookUrl: data.bookUrl,
+    magnitude: response.magnitude,
+    score: response.score
+  }
+  console.log(sendThis)
+  res.json(sendThis)
   } catch (error) {
     res.status(400).send(`Sorry, I can't read that one right now!`)
   }
