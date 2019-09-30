@@ -9,13 +9,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    },
-    {
-      path: '/analyze',
       name: 'analyze',
       component: Analyze
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: HelloWorld
     }
   ]
 })
