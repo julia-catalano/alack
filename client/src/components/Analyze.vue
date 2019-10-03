@@ -2,9 +2,9 @@
   <div>
     <h1>will this classic novel make me cry?</h1>
     </br>
-    <input type='text' name='title' v-model='title' placeholder='title' />
-    <button @click='analyze'>analyze</button>
-    <div v-html="error"/>
+      <input type='text' name='title' v-model='title' placeholder='title' />
+      <button @click='analyze'>analyze</button>
+      <div v-html="error"/>
     </br>
     <div class='white elevation-2'>
       </br>
